@@ -339,3 +339,4 @@ ASALocalRun/
 .localhistory/
 
 .vscode/
+/2.EntityFramework/Otus.Teaching.PromoCodeFactory.Core/Local.db
