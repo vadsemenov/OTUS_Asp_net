@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
+        <UserSecretsId>9f11bc54-f00d-4fc0-a39d-7aafe6d31347</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,6 +14,10 @@
 
     <ItemGroup>
       <PackageReference Include="NSwag.AspNetCore" Version="13.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Mapping\" />
     </ItemGroup>
 
 </Project>
