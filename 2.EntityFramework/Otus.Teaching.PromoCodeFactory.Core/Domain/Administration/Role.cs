@@ -7,6 +7,8 @@ namespace Otus.Teaching.PromoCodeFactory.Core.Domain.Administration
     {
         public string Name { get; set; }
 
+        public string AdditionalDescription { get; set; }
+
         public string Description { get; set; }
     }
 }
