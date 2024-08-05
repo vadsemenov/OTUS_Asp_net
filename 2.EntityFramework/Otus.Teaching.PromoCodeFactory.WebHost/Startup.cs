@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories;
@@ -17,19 +14,37 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped(typeof(IRepository<Employee>), (x) => 
-                new InMemoryRepository<Employee>(FakeDataFactory.Employees));
-            services.AddScoped(typeof(IRepository<Role>), (x) => 
-                new InMemoryRepository<Role>(FakeDataFactory.Roles));
-            services.AddScoped(typeof(IRepository<Preference>), (x) => 
-                new InMemoryRepository<Preference>(FakeDataFactory.Preferences));
-            services.AddScoped(typeof(IRepository<Customer>), (x) => 
-                new InMemoryRepository<Customer>(FakeDataFactory.Customers));
+
+            services.AddDbContext<PromoCodeDbContext>(op =>
+                op.UseLazyLoadingProxies()
+                    .UseSqlite(_configuration.GetConnectionString("SqlLite")));
+
+            services.AddScoped<IRepository<Customer>, CustomersRepository>();
+            services.AddScoped<IRepository<Role>, RolesRepository>();
+            services.AddScoped<IRepository<PromoCode>, PromoCodesRepository>();
+            services.AddScoped<IRepository<Preference>, PreferencesRepository>();
+            services.AddScoped<IRepository<Employee>, EmployeesRepository>();
+
+            // services.AddScoped(typeof(IRepository<Employee>), (x) => 
+            //     new InMemoryRepository<Employee>(FakeDataFactory.Employees));
+            // services.AddScoped(typeof(IRepository<Role>), (x) => 
+            //     new InMemoryRepository<Role>(FakeDataFactory.Roles));
+            // services.AddScoped(typeof(IRepository<Preference>), (x) => 
+            //     new InMemoryRepository<Preference>(FakeDataFactory.Preferences));
+            // services.AddScoped(typeof(IRepository<Customer>), (x) => 
+            //     new InMemoryRepository<Customer>(FakeDataFactory.Customers));
 
             services.AddOpenApiDocument(options =>
             {
@@ -55,7 +70,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             {
                 x.DocExpansion = "list";
             });
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
