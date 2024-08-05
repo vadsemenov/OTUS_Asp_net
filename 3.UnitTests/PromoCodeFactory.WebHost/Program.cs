@@ -13,7 +13,11 @@ namespace PromoCodeFactory.WebHost
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var builder = CreateHostBuilder(args).Build();
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            builder.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
