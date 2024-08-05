@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PromoCodeFactory.Core.Abstractions.Repositories;
 using PromoCodeFactory.Core.Domain.PromoCodeManagement;
-using PromoCodeFactory.DataAccess.Data;
 using PromoCodeFactory.WebHost.Controllers;
 using PromoCodeFactory.WebHost.Models;
 using Xunit;
@@ -181,7 +179,7 @@ namespace PromoCodeFactory.UnitTests.WebHost.Controllers.Partners
                 .Contain(x => x.Limit == 100
                               && x.EndDate == promoCodeLimitRequest.EndDate
                               && x.PartnerId == partner.Id);
-            
+
             _partnersRepositoryMock
                 .Verify(repo => repo.UpdateAsync(It.IsAny<Partner>()), Times.Once);
         }
