@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PROJECT_NAME:  PromoCodeFactory.WebHost
-      TEST_PROJECT_NAME: PromoCodeFactory.UnitTests
+      PROJECT_NAME:  3.UnitTests/PromoCodeFactory.WebHost
+      TEST_PROJECT_NAME: 3.UnitTests/PromoCodeFactory.UnitTests
 
     steps:
     - uses: actions/checkout@v4
