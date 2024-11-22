@@ -18,7 +18,7 @@ jobs:
       TEST_PROJECT_NAME: PromoCodeFactory.UnitTests
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     
     - name: Build project
       run: dotnet build ${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -o content
