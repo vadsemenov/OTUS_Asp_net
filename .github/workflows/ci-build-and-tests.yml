@@ -21,10 +21,10 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Build project
-      run: dotnet build $"3.UnitTests"/{{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -o content
+      run: dotnet build 3.UnitTests/${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -o content
 
     - name: Run tests
-      run: dotnet test $"3.UnitTests"/{{ env.TEST_PROJECT_NAME }}/${{ env.TEST_PROJECT_NAME }}.csproj
+      run: dotnet test 3.UnitTests/${{ env.TEST_PROJECT_NAME }}/${{ env.TEST_PROJECT_NAME }}.csproj
 
     - name: Archive build output
       uses: actions/upload-artifact@v4
