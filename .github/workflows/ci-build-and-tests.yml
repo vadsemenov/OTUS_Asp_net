@@ -14,17 +14,17 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PROJECT_NAME:  3.UnitTests/PromoCodeFactory.WebHost
-      TEST_PROJECT_NAME: 3.UnitTests/PromoCodeFactory.UnitTests
+      PROJECT_NAME:  PromoCodeFactory.WebHost
+      TEST_PROJECT_NAME: PromoCodeFactory.UnitTests
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Build project
-      run: dotnet build ${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -o content
+      run: dotnet build $3.UnitTests/{{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -o content
 
     - name: Run tests
-      run: dotnet test ${{ env.TEST_PROJECT_NAME }}/${{ env.TEST_PROJECT_NAME }}.csproj
+      run: dotnet test $3.UnitTests/{{ env.TEST_PROJECT_NAME }}/${{ env.TEST_PROJECT_NAME }}.csproj
 
     - name: Archive build output
       uses: actions/upload-artifact@v4
