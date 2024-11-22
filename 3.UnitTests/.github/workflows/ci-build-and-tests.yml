@@ -5,9 +5,8 @@ name: CI-Build-And-Tests
 
 on:
   push:
-    branches: [ "UnitTests" ]
-  pull_request:
-    branches: [ "UnitTests" ]
+    branches:
+      - UnitTests
 
 jobs:
   build:
