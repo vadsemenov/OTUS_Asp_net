@@ -1,0 +1,33 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: CI-Build-And-Tests
+
+on:
+  push:
+    branches:
+      - UnitTests
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      PROJECT_NAME:  PromoCodeFactory.WebHost
+      TEST_PROJECT_NAME: PromoCodeFactory.UnitTests
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build project
+      run: dotnet build 3.UnitTests/${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -o content
+
+    - name: Run tests
+      run: dotnet test 3.UnitTests/${{ env.TEST_PROJECT_NAME }}/${{ env.TEST_PROJECT_NAME }}.csproj
+
+    - name: Archive build output
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: content
