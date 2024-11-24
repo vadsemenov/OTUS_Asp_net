@@ -15,9 +15,9 @@ namespace Pcf.Administration.WebHost.Controllers
     [Route("api/v1/[controller]")]
     public class RolesController
     {
-        private readonly IRepository<Role> _rolesRepository;
+        private readonly IMongoRepository<Role> _rolesRepository;
 
-        public RolesController(IRepository<Role> rolesRepository)
+        public RolesController(IMongoRepository<Role> rolesRepository)
         {
             _rolesRepository = rolesRepository;
         }
