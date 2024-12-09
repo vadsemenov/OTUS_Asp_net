@@ -17,13 +17,13 @@ namespace Pcf.Administration.WebHost.Controllers
     public class EmployeesController
         : ControllerBase
     {
-        private readonly IRepository<Employee> _employeeRepository;
+        private readonly IMongoRepository<Employee> _employeeRepository;
 
-        public EmployeesController(IRepository<Employee> employeeRepository)
+        public EmployeesController(IMongoRepository<Employee> employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
-        
+
         /// <summary>
         /// Получить данные всех сотрудников
         /// </summary>
@@ -33,24 +33,24 @@ namespace Pcf.Administration.WebHost.Controllers
         {
             var employees = await _employeeRepository.GetAllAsync();
 
-            var employeesModelList = employees.Select(x => 
+            var employeesModelList = employees.Select(x =>
                 new EmployeeShortResponse()
-                    {
-                        Id = x.Id,
-                        Email = x.Email,
-                        FullName = x.FullName,
-                    }).ToList();
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    FullName = x.FullName,
+                }).ToList();
 
             return employeesModelList;
         }
-        
+
         /// <summary>
         /// Получить данные сотрудника по id
         /// </summary>
-        /// <param name="id">Id сотрудника, например <example>451533d5-d8d5-4a11-9c7b-eb9f14e1a32f</example></param>
+        /// <param name="id">Id сотрудника</param>
         /// <returns></returns>
-        [HttpGet("{id:guid}")]
-        public async Task<ActionResult<EmployeeResponse>> GetEmployeeByIdAsync(Guid id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EmployeeResponse>> GetEmployeeByIdAsync(string id)
         {
             var employee = await _employeeRepository.GetByIdAsync(id);
 
@@ -73,15 +73,14 @@ namespace Pcf.Administration.WebHost.Controllers
 
             return employeeModel;
         }
-        
+
         /// <summary>
         /// Обновить количество выданных промокодов
         /// </summary>
         /// <param name="id">Id сотрудника, например <example>451533d5-d8d5-4a11-9c7b-eb9f14e1a32f</example></param>
         /// <returns></returns>
-        [HttpPost("{id:guid}/appliedPromocodes")]
-        
-        public async Task<IActionResult> UpdateAppliedPromocodesAsync(Guid id)
+        [HttpPost("{id}/appliedPromocodes")]
+        public async Task<IActionResult> UpdateAppliedPromocodesAsync(string id)
         {
             var employee = await _employeeRepository.GetByIdAsync(id);
 
