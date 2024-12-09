@@ -1,0 +1,27 @@
+version: '3'
+services:
+  promocode-factory-api:
+    build: .
+    container_name: 'promocode-factory-api'
+    environment:
+      - "ConnectionStrings:PromoCodeFactoryDb=Host=promocode-factory-db;Database=promocode_factory_db;Username=postgres;Password=docker"
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - promocode-factory-db
+    networks:
+      - app-network
+  promocode-factory-db:
+    image: postgres:latest
+    container_name: 'promocode-factory-db'
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: promocode_factory_db
+    networks:
+      - app-network
+networks:
+  app-network:
