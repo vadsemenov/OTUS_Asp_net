@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Otus.Teaching.Pcf.GivingToCustomer.IntegrationTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:63437;http://localhost:63438"
+    }
+  }
+}
